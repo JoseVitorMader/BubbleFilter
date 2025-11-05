@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Bolhas de Filtro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Início</a></li>
+                    <li><a href="contexto.html" class="nav-link">Contexto</a></li>
+                    <li><a href="impactos.html" class="nav-link">Impactos</a></li>
+                    <li><a href="solucoes.html" class="nav-link">Soluções</a></li>
+                    <li><a href="quiz.html" class="nav-link active">Quiz</a></li>
+                    <li><a href="fontes.html">Fontes</a></li>
+                    <li><a href="redacao.html">Redação</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1><i class="fas fa-question-circle"></i> Quiz: Teste seus Conhecimentos</h1>
+                <p>Avalie seu entendimento sobre bolhas de filtro e privacidade digital</p>
+            </div>
+        </section>
+
+        <section class="quiz-section">
+            <div class="container">
+                <div class="quiz-container">
+                    <!-- Quiz Start Screen -->
+                    <div id="quiz-start" class="quiz-screen active">
+                        <div class="quiz-intro">
+                            <div class="quiz-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h2>Pronto para o Desafio?</h2>
+                            <p>
+                                Este quiz contém <strong>10 perguntas</strong> sobre bolhas de filtro, 
+                                algoritmos de personalização e seus impactos na sociedade. 
+                                Teste seu conhecimento e descubra o quanto você aprendeu!
+                            </p>
+                            <div class="quiz-rules">
+                                <h3>Como funciona:</h3>
+                                <ul>
+                                    <li><i class="fas fa-clock"></i> Sem limite de tempo</li>
+                                    <li><i class="fas fa-check"></i> Uma tentativa por pergunta</li>
+                                    <li><i class="fas fa-star"></i> Pontuação baseada em acertos</li>
+                                    <li><i class="fas fa-info"></i> Explicações detalhadas para cada resposta</li>
+                                </ul>
+                            </div>
+                            <button id="start-quiz-btn" class="btn btn-primary">
+                                <i class="fas fa-play"></i> Iniciar Quiz
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Progress -->
+                    <div id="quiz-progress" class="quiz-screen">
+                        <div class="progress-header">
+                            <div class="progress-info">
+                                <span class="question-counter">Pergunta <span id="current-question">1</span> de <span id="total-questions">10</span></span>
+                                <span class="score-display">Pontuação: <span id="current-score">0</span></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                        </div>
+
+                        <div class="question-container">
+                            <div class="question-content">
+                                <h3 id="question-text"></h3>
+                                <div class="question-image" id="question-image" style="display: none;">
+                                    <img id="question-img" src="" alt="">
+                                </div>
+                            </div>
+                            
+                            <div class="options-container" id="options-container">
+                                <!-- Options will be dynamically generated -->
+                            </div>
+
+                            <div class="question-actions">
+                                <button id="next-question-btn" class="btn btn-primary" style="display: none;">
+                                    Próxima Pergunta <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="explanation-container" id="explanation-container" style="display: none;">
+                            <div class="explanation-content">
+                                <h4><i class="fas fa-lightbulb"></i> Explicação</h4>
+                                <p id="explanation-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Results -->
+                    <div id="quiz-results" class="quiz-screen">
+                        <div class="results-container">
+                            <div class="results-header">
+                                <div class="results-icon" id="results-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <h2 id="results-title">Quiz Concluído!</h2>
+                                <div class="final-score">
+                                    <span class="score-label">Sua Pontuação:</span>
+                                    <span class="score-value" id="final-score">0/10</span>
+                                    <span class="score-percentage" id="score-percentage">0%</span>
+                                </div>
+                            </div>
+
+                            <div class="performance-analysis">
+                                <h3>Análise de Performance</h3>
+                                <div class="performance-item">
+                                    <span class="performance-label">Nível de Conhecimento:</span>
+                                    <span class="performance-value" id="knowledge-level">Iniciante</span>
+                                </div>
+                                <div class="performance-item">
+                                    <span class="performance-label">Tempo Total:</span>
+                                    <span class="performance-value" id="total-time">0min 0s</span>
+                                </div>
+                                <div class="performance-item">
+                                    <span class="performance-label">Acertos Consecutivos:</span>
+                                    <span class="performance-value" id="streak">0</span>
+                                </div>
+                            </div>
+
+                            <div class="recommendations" id="recommendations">
+                                <h3>Recomendações de Estudo</h3>
+                                <div class="recommendation-list" id="recommendation-list">
+                                    <!-- Recommendations will be dynamically generated -->
+                                </div>
+                            </div>
+
+                            <div class="results-actions">
+                                <button id="restart-quiz-btn" class="btn btn-secondary">
+                                    <i class="fas fa-redo"></i> Refazer Quiz
+                                </button>
+                                <button id="share-results-btn" class="btn btn-primary">
+                                    <i class="fas fa-share"></i> Compartilhar Resultado
+                                </button>
+                            </div>
+
+                            <div class="certificate-section" id="certificate-section" style="display: none;">
+                                <div class="certificate">
+                                    <div class="certificate-header">
+                                        <i class="fas fa-award"></i>
+                                        <h4>Certificado de Conclusão</h4>
+                                    </div>
+                                    <div class="certificate-body">
+                                        <p>Parabéns! Você demonstrou excelente conhecimento sobre bolhas de filtro e privacidade digital.</p>
+                                        <div class="certificate-details">
+                                            <span>Data: <span id="completion-date"></span></span>
+                                            <span>Pontuação: <span id="certificate-score"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Review -->
+                    <div id="quiz-review" class="quiz-screen">
+                        <div class="review-container">
+                            <h2><i class="fas fa-clipboard-list"></i> Revisão das Respostas</h2>
+                            <div class="review-list" id="review-list">
+                                <!-- Review items will be dynamically generated -->
+                            </div>
+                            <div class="review-actions">
+                                <button id="back-to-results-btn" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Voltar aos Resultados
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+    <script src="quiz.js"></script>
+    <script src="script-enhanced.js"></script>
+</body>
+</html>
