@@ -43,11 +43,73 @@ function initNavigation() {
         hamburger.setAttribute('aria-controls', 'nav-menu');
         navMenu.setAttribute('id', 'nav-menu');
         
-        hamburger.addEventListener('click', function() {
+        // Toggle menu function
+        function toggleMenu() {
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
             hamburger.setAttribute('aria-expanded', !isExpanded);
             hamburger.setAttribute('aria-label', isExpanded ? 'Abrir menu de navegação' : 'Fechar menu de navegação');
+            hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isExpanded ? 'auto' : 'hidden';
+            
+            // Focus management
+            if (!isExpanded) {
+                // Menu opening - focus first link
+                const firstLink = navMenu.querySelector('a');
+                if (firstLink) {
+                    setTimeout(() => firstLink.focus(), 100);
+                }
+            } else {
+                // Menu closing - return focus to hamburger
+                hamburger.focus();
+            }
+        }
+        
+        // Click event
+        hamburger.addEventListener('click', toggleMenu);
+        
+        // Keyboard support for hamburger
+        hamburger.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMenu();
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                if (navMenu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            }
+        });
+        
+        // Close menu when pressing Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+        
+        // Close menu when clicking on a link
+        navMenu.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                toggleMenu();
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.setAttribute('aria-label', 'Abrir menu de navegação');
+                document.body.style.overflow = 'auto';
+            }
         });
     }
 }
